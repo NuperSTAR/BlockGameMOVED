@@ -8,7 +8,7 @@
         body {
             margin: 0;
             overflow: hidden;
-            background-color: green; /* Set the background color to green */
+            background-color: green;
         }
         #container {
             position: absolute;
@@ -21,7 +21,7 @@
             position: absolute;
             width: 50px;
             height: 50px;
-            background-color: black; /* Changed character block color to black */
+            background-color: black;
         }
         #speedInput {
             position: absolute;
@@ -31,7 +31,7 @@
             background-color: white;
             border: none;
             border-radius: 5px;
-            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Added drop shadow */
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
         }
         .red-block {
             position: absolute;
@@ -67,7 +67,7 @@
             position: absolute;
             width: 50px;
             height: 50px;
-            background-color: cyan; /* Added cyan block */
+            background-color: cyan;
         }
         #pointsLabel {
             position: absolute;
@@ -75,7 +75,7 @@
             right: 10px;
             color: white;
             font-size: 20px;
-            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* Added text shadow */
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
         }
         #resetButton {
             position: absolute;
@@ -87,7 +87,52 @@
             border: none;
             cursor: pointer;
             border-radius: 5px;
-            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Added drop shadow */
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+            text-align: center;
+        }
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            font-size: 20px;
+        }
+        .close:hover {
+            color: red;
+        }
+        .modal-content a {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .modal-content a:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
@@ -97,10 +142,21 @@
     </div>
     <input type="number" id="speedInput" placeholder="Speed" min="1" value="5">
     <div id="pointsLabel">Points: 0</div>
-    <button id="resetButton">Reset Points</button> <!-- Added reset button -->
+    <button id="resetButton">Reset Points</button>
     
+    <!-- Modal HTML -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeModal">&times;</span>
+            <h2>Notice</h2>
+            <p>We have made a part two of this game, if you want to check it out, you can.</p>
+            <a href="https://nuperstar.github.io/BlockGame2/">Go to Part Two</a>
+        </div>
+    </div>
+
     <script>
-        const cube = document.getElementById('cube');
+       
+       const cube = document.getElementById('cube');
         const container = document.getElementById('container');
         const speedInput = document.getElementById('speedInput');
         const pointsLabel = document.getElementById('pointsLabel');
@@ -123,6 +179,18 @@
             cube.style.top = cubeY + 'px';
         }
 
+        window.addEventListener('load', function () {
+            const modal = document.getElementById('myModal');
+            const closeModal = document.getElementById('closeModal');
+            
+            // Show the modal to all users
+            modal.style.display = 'block';
+            
+            // Close the modal when the close button is clicked
+            closeModal.addEventListener('click', function () {
+                modal.style.display = 'none';
+            });
+        });
         // Function to create a red block
         function createRedBlock() {
             const redBlock = document.createElement('div');
